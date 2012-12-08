@@ -1,15 +1,22 @@
 //
 //  DJAppDelegate.h
-//  Buzz 2
+//  Buzz
 //
-//  Created by Earl on 12/8/12.
+//  Created by Earl on 9/19/12.
 //  Copyright (c) 2012 Earl. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
+#import "NSArray+ConvenienceMethods.h"
+#import "NSURL+DirectoryEnumerator.h"
+#import <Quartz/Quartz.h>
+#import "QLPreviewPanel+Secret.h"
 
-@interface DJAppDelegate : NSObject <NSApplicationDelegate>
+@interface DJAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, QLPreviewPanelDataSource, QLPreviewPanelDelegate>
+@property NSURL *goalCardDirectory;
+@property QLPreviewPanel *panel;
+@property NSArray *quicklookItems;
+@property IBOutlet NSWindow *prefs;
 
-@property (assign) IBOutlet NSWindow *window;
-
+- (void) configureNotifications;
 @end

@@ -11,8 +11,12 @@
 		FD1D64C61672F5F500425252 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD1D64C41672F5F500425252 /* InfoPlist.strings */; };
 		FD1D64C81672F5F500425252 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1D64C71672F5F500425252 /* main.m */; };
 		FD1D64CC1672F5F500425252 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FD1D64CA1672F5F500425252 /* Credits.rtf */; };
-		FD1D64CF1672F5F500425252 /* DJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1D64CE1672F5F500425252 /* DJAppDelegate.m */; };
 		FD1D64D21672F5F500425252 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD1D64D01672F5F500425252 /* MainMenu.xib */; };
+		FD1D64D91672F60500425252 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1D64D81672F60500425252 /* Quartz.framework */; };
+		FD1D64DF1672F67000425252 /* Icon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = FD1D64DE1672F67000425252 /* Icon.iconset */; };
+		FD39E64F1672F986008134E4 /* NSURL+DirectoryEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = FD39E64C1672F986008134E4 /* NSURL+DirectoryEnumerator.m */; };
+		FD39E6501672F986008134E4 /* NSArray+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = FD39E64E1672F986008134E4 /* NSArray+ConvenienceMethods.m */; };
+		FD39E6511672F9E7008134E4 /* DJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1D64DD1672F64F00425252 /* DJAppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,9 +30,16 @@
 		FD1D64C71672F5F500425252 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FD1D64C91672F5F500425252 /* Buzz 2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Buzz 2-Prefix.pch"; sourceTree = "<group>"; };
 		FD1D64CB1672F5F500425252 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		FD1D64CD1672F5F500425252 /* DJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJAppDelegate.h; sourceTree = "<group>"; };
-		FD1D64CE1672F5F500425252 /* DJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJAppDelegate.m; sourceTree = "<group>"; };
 		FD1D64D11672F5F500425252 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		FD1D64D81672F60500425252 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		FD1D64DC1672F64F00425252 /* DJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJAppDelegate.h; sourceTree = "<group>"; };
+		FD1D64DD1672F64F00425252 /* DJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJAppDelegate.m; sourceTree = "<group>"; };
+		FD1D64DE1672F67000425252 /* Icon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Icon.iconset; sourceTree = "<group>"; };
+		FD39E64A1672F986008134E4 /* QLPreviewPanel+Secret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QLPreviewPanel+Secret.h"; sourceTree = "<group>"; };
+		FD39E64B1672F986008134E4 /* NSURL+DirectoryEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DirectoryEnumerator.h"; sourceTree = "<group>"; };
+		FD39E64C1672F986008134E4 /* NSURL+DirectoryEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DirectoryEnumerator.m"; sourceTree = "<group>"; };
+		FD39E64D1672F986008134E4 /* NSArray+ConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ConvenienceMethods.h"; sourceTree = "<group>"; };
+		FD39E64E1672F986008134E4 /* NSArray+ConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ConvenienceMethods.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +48,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD1D64BC1672F5F500425252 /* Cocoa.framework in Frameworks */,
+				FD1D64D91672F60500425252 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +75,7 @@
 		FD1D64BA1672F5F500425252 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FD1D64D81672F60500425252 /* Quartz.framework */,
 				FD1D64BB1672F5F500425252 /* Cocoa.framework */,
 				FD1D64BD1672F5F500425252 /* Other Frameworks */,
 			);
@@ -82,9 +95,14 @@
 		FD1D64C11672F5F500425252 /* Buzz 2 */ = {
 			isa = PBXGroup;
 			children = (
-				FD1D64CD1672F5F500425252 /* DJAppDelegate.h */,
-				FD1D64CE1672F5F500425252 /* DJAppDelegate.m */,
+				FD39E64A1672F986008134E4 /* QLPreviewPanel+Secret.h */,
+				FD39E64B1672F986008134E4 /* NSURL+DirectoryEnumerator.h */,
+				FD39E64C1672F986008134E4 /* NSURL+DirectoryEnumerator.m */,
+				FD39E64D1672F986008134E4 /* NSArray+ConvenienceMethods.h */,
+				FD39E64E1672F986008134E4 /* NSArray+ConvenienceMethods.m */,
 				FD1D64D01672F5F500425252 /* MainMenu.xib */,
+				FD1D64DC1672F64F00425252 /* DJAppDelegate.h */,
+				FD1D64DD1672F64F00425252 /* DJAppDelegate.m */,
 				FD1D64C21672F5F500425252 /* Supporting Files */,
 			);
 			path = "Buzz 2";
@@ -93,6 +111,7 @@
 		FD1D64C21672F5F500425252 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FD1D64DE1672F67000425252 /* Icon.iconset */,
 				FD1D64C31672F5F500425252 /* Buzz 2-Info.plist */,
 				FD1D64C41672F5F500425252 /* InfoPlist.strings */,
 				FD1D64C71672F5F500425252 /* main.m */,
@@ -112,6 +131,7 @@
 				FD1D64B31672F5F500425252 /* Sources */,
 				FD1D64B41672F5F500425252 /* Frameworks */,
 				FD1D64B51672F5F500425252 /* Resources */,
+				FD1D64E01672F6BF00425252 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -157,18 +177,37 @@
 				FD1D64C61672F5F500425252 /* InfoPlist.strings in Resources */,
 				FD1D64CC1672F5F500425252 /* Credits.rtf in Resources */,
 				FD1D64D21672F5F500425252 /* MainMenu.xib in Resources */,
+				FD1D64DF1672F67000425252 /* Icon.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FD1D64E01672F6BF00425252 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "open $CONFIGURATION_BUILD_DIR\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FD1D64B31672F5F500425252 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD39E6511672F9E7008134E4 /* DJAppDelegate.m in Sources */,
 				FD1D64C81672F5F500425252 /* main.m in Sources */,
-				FD1D64CF1672F5F500425252 /* DJAppDelegate.m in Sources */,
+				FD39E64F1672F986008134E4 /* NSURL+DirectoryEnumerator.m in Sources */,
+				FD39E6501672F986008134E4 /* NSArray+ConvenienceMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +312,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Buzz 2/Buzz 2-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				INFOPLIST_FILE = "Buzz 2/Buzz 2-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -298,6 +338,7 @@
 				FD1D64D71672F5F500425252 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
