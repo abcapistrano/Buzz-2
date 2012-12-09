@@ -8,8 +8,6 @@
 
 #import "DJAppDelegate.h"
 
-NSString * const GOAL_CARD_DIRECTORY_KEY = @"GOAL_CARD_DIRECTORY";
-
 NSString * const ALL_AFFIRMATIONS_KEY = @"ALL_AFFIRMATIONS_KEY";
 NSString * const ALL_RULES_KEY = @"ALL_RULES_KEY";
 NSString * const ALL_IMAGES_KEY = @"ALL_IMAGES_KEY";
@@ -24,9 +22,9 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     
+    self.goalCardDirectory = [NSURL fileURLWithPath:[@"~/Dropbox/Goal Card" stringByExpandingTildeInPath]];
     
-    [self initializeGoalCardViewer];
-    
+        
     [self configureNotifications];
 
     NSUserNotification *note = aNotification.userInfo[NSApplicationLaunchUserNotificationKey];
@@ -125,59 +123,6 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
 
 // This method asks the user where the location of Goal Card data
 
-- (void) initializeGoalCardViewer {
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *aliasForGoalCardDirectory = [userDefaults dataForKey:GOAL_CARD_DIRECTORY_KEY];
-    if (!aliasForGoalCardDirectory) {
-        
-        NSOpenPanel *open = [NSOpenPanel openPanel];
-        [open setCanChooseFiles:NO];
-        [open setCanChooseDirectories:YES];
-        
-        open.title = @"Where are the contents of the Goal Card located?";
-        [open runModal];
-        
-        NSURL *url = [[open URLs] lastObject];
-        
-        NSError *error;
-        NSData *bookmarkData = [url bookmarkDataWithOptions:0
-                             includingResourceValuesForKeys:nil
-                                              relativeToURL:nil
-                                                      error:nil];
-        
-        if (bookmarkData) {
-            
-            NSLog(@"%@", @"success");
-            
-            self.goalCardDirectory = url;
-            
-            [userDefaults setObject:bookmarkData forKey:GOAL_CARD_DIRECTORY_KEY];
-            [userDefaults synchronize];
-            
-        } else {
-            
-            
-            NSLog(@"error: %@", [error localizedDescription]);
-            
-        }
-        
-    }
-    if (!self.goalCardDirectory) {
-        
-        NSError *error;
-        self.goalCardDirectory = [NSURL URLByResolvingBookmarkData:aliasForGoalCardDirectory options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:nil error:&error];
-        
-    }
-
-    
-    
-    
-    
-}
-
-
-
 
 - (void) showItems {
     
@@ -202,7 +147,7 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     if (allAffirmations == nil || [allAffirmations count]== 0 ) {
         
         
-        allAffirmations = [[affirmationsDirectory.files valueForKey:@"lastPathComponent"] mutableCopy];
+        allAffirmations = [affirmationsDirectory.files mutableCopy];
         
         
         
@@ -210,19 +155,24 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     
     
     NSString *randomAffirmation = [allAffirmations grab:1][0];
-    [itemsToShow addObject:[affirmationsDirectory URLByAppendingPathComponent:randomAffirmation]];
+    [itemsToShow addObject:randomAffirmation];
     [userDefaults setObject:allAffirmations forKey:ALL_AFFIRMATIONS_KEY];    
     
     
     //Get one Rule
     
     NSMutableArray *allRules = [[userDefaults arrayForKey:ALL_RULES_KEY] mutableCopy];
+    
+    
     NSURL *rulesDirectory = [self.goalCardDirectory URLByAppendingPathComponent:@"Rules"];
+    NSURL *privateRulesDirectory = [self.goalCardDirectory URLByAppendingPathComponent:@"Private Rules"];
+
     
     if (allRules == nil || [allRules count]== 0 ) {
         
         
-        allRules = [[rulesDirectory.files valueForKey:@"lastPathComponent"] mutableCopy];
+        allRules = [rulesDirectory.files mutableCopy];
+        [allRules addObjectsFromArray:privateRulesDirectory.files];
         
         
         
@@ -230,7 +180,7 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     
     
     NSString *randomRule = [allRules grab:1][0];
-    [itemsToShow addObject:[rulesDirectory URLByAppendingPathComponent:randomRule]];
+    [itemsToShow addObject:randomRule];
     [userDefaults setObject:allRules forKey:ALL_RULES_KEY];
 
     
@@ -242,14 +192,14 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     if (allInspirationalTexts == nil || [allInspirationalTexts count]== 0 ) {
         
         
-        allInspirationalTexts = [[inspirationalTextsDirectory.files valueForKey:@"lastPathComponent"] mutableCopy];
+        allInspirationalTexts = [inspirationalTextsDirectory.files mutableCopy];
                
         
     }
     
     
     NSString *randomInspirationalText = [allInspirationalTexts grab:1][0];
-    [itemsToShow addObject:[inspirationalTextsDirectory URLByAppendingPathComponent:randomInspirationalText]];
+    [itemsToShow addObject:randomInspirationalText];
     [userDefaults setObject:allInspirationalTexts forKey:ALL_INSPIRATIONAL_TEXTS_KEY];
 
 
@@ -262,18 +212,14 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     
     if (allImages == nil || [allImages count]== 0 ) {
         
-        allImages = [[imagesDirectory.files valueForKey:@"lastPathComponent"] mutableCopy];
+        allImages = [imagesDirectory.files mutableCopy];
         
         
     }
     
     NSArray *randomImages = [allImages grab:5];
     
-    for (NSString *image in randomImages) {
-        [itemsToShow addObject:[imagesDirectory URLByAppendingPathComponent:image]];
-
-    }
-    
+    [itemsToShow addObjectsFromArray:randomImages];
     [userDefaults setObject:allImages forKey:ALL_IMAGES_KEY];
     
     
