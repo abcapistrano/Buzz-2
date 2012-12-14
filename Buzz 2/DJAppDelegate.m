@@ -22,6 +22,10 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     
+    
+    
+    
+    
     self.goalCardDirectory = [NSURL fileURLWithPath:[@"~/Dropbox/Goal Card" stringByExpandingTildeInPath]];
     
         
@@ -72,7 +76,7 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     
     NSUserNotification *note = [[NSUserNotification alloc] init];
     note.title = @"Buzz 2";
-    note.informativeText = @"Wollen Sie etwas zu motivieren? 2";
+    note.informativeText = @"Wollen Sie etwas zu motivieren?";
     // deliver notification after 10 minutes
     
 #ifdef DEBUG
@@ -137,7 +141,7 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     
     
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    
+    NSLog(@"%@", userDefaults);
     
     //Get one affirmation
     
@@ -147,14 +151,14 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     if (allAffirmations == nil || [allAffirmations count]== 0 ) {
         
         
-        allAffirmations = [affirmationsDirectory.files mutableCopy];
-        
+        allAffirmations = [[affirmationsDirectory valueForKeyPath:@"files.absoluteString"]  mutableCopy];
+     
         
         
     }
     
     
-    NSString *randomAffirmation = [allAffirmations grab:1][0];
+    NSURL *randomAffirmation = [NSURL URLWithString:[allAffirmations grab:1][0]];
     [itemsToShow addObject:randomAffirmation];
     [userDefaults setObject:allAffirmations forKey:ALL_AFFIRMATIONS_KEY];    
     
@@ -171,15 +175,15 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     if (allRules == nil || [allRules count]== 0 ) {
         
         
-        allRules = [rulesDirectory.files mutableCopy];
-        [allRules addObjectsFromArray:privateRulesDirectory.files];
+        allRules = [[rulesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
+        [allRules addObjectsFromArray:[privateRulesDirectory valueForKeyPath:@"files.absoluteString"]];
         
         
         
     }
     
     
-    NSString *randomRule = [allRules grab:1][0];
+    NSURL *randomRule =  [NSURL URLWithString: [allRules grab:1][0]];
     [itemsToShow addObject:randomRule];
     [userDefaults setObject:allRules forKey:ALL_RULES_KEY];
 
@@ -191,33 +195,43 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     
     if (allInspirationalTexts == nil || [allInspirationalTexts count]== 0 ) {
         
-        
-        allInspirationalTexts = [inspirationalTextsDirectory.files mutableCopy];
+        allInspirationalTexts = [[inspirationalTextsDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
                
         
     }
     
     
-    NSString *randomInspirationalText = [allInspirationalTexts grab:1][0];
+    NSURL *randomInspirationalText = [NSURL URLWithString: [allInspirationalTexts grab:1][0]];
     [itemsToShow addObject:randomInspirationalText];
     [userDefaults setObject:allInspirationalTexts forKey:ALL_INSPIRATIONAL_TEXTS_KEY];
 
 
 
 
-    //Get three images
+    //Get five images
     
     NSMutableArray *allImages = [[userDefaults arrayForKey:ALL_IMAGES_KEY] mutableCopy];
     NSURL *imagesDirectory = [self.goalCardDirectory URLByAppendingPathComponent:@"images"];
     
     if (allImages == nil || [allImages count]== 0 ) {
         
-        allImages = [imagesDirectory.files mutableCopy];
+        allImages = [[imagesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
         
         
     }
     
-    NSArray *randomImages = [allImages grab:5];
+    
+    
+    NSMutableArray *randomImages = [NSMutableArray array];
+    
+    
+    for (NSString *str in [allImages grab:5]) {
+        
+        
+        [randomImages addObject:[NSURL URLWithString:str]];
+        
+    }
+    
     
     [itemsToShow addObjectsFromArray:randomImages];
     [userDefaults setObject:allImages forKey:ALL_IMAGES_KEY];
