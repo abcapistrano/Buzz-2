@@ -10,7 +10,7 @@
 
 NSString * const ALL_AFFIRMATIONS_KEY = @"ALL_AFFIRMATIONS_KEY";
 NSString * const ALL_RULES_KEY = @"ALL_RULES_KEY";
-NSString * const ALL_IMAGES_KEY = @"ALL_IMAGES_KEY";
+//NSString * const ALL_IMAGES_KEY = @"ALL_IMAGES_KEY";
 NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
 
 
@@ -21,11 +21,7 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    
-    
-    
-    
-    
+
     self.goalCardDirectory = [NSURL fileURLWithPath:[@"~/Dropbox/Goal Card" stringByExpandingTildeInPath]];
     
         
@@ -209,7 +205,7 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
 
 
     //Get five images
-    
+    /*
     NSMutableArray *allImages = [[userDefaults arrayForKey:ALL_IMAGES_KEY] mutableCopy];
     NSURL *imagesDirectory = [self.goalCardDirectory URLByAppendingPathComponent:@"images"];
     
@@ -229,12 +225,12 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
         
         
         [randomImages addObject:[NSURL URLWithString:str]];
-        
+
     }
     
     
     [itemsToShow addObjectsFromArray:randomImages];
-    [userDefaults setObject:allImages forKey:ALL_IMAGES_KEY];
+    [userDefaults setObject:allImages forKey:ALL_IMAGES_KEY];*/
     
     
     [userDefaults synchronize];
@@ -245,12 +241,15 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     self.panel = [QLPreviewPanel sharedPreviewPanel];
     self.panel.dataSource = self;
     self.panel.delegate = self;
+    
+    
     [self.panel updateController];
     [self.panel setAutostarts:NO];
 
     
     [self.panel makeKeyAndOrderFront:self];
     [self.panel enterFullScreenMode:[NSScreen mainScreen] withOptions:nil];
+    
     
     // Remove delivered notifications
     
@@ -272,6 +271,7 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
 
 
 - (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index {
+    
     
     return self.quicklookItems[index];
     
