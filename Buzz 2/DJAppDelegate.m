@@ -13,6 +13,8 @@ NSString * const ALL_RULES_KEY = @"ALL_RULES_KEY";
 //NSString * const ALL_IMAGES_KEY = @"ALL_IMAGES_KEY";
 NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
 
+NSString * const IAWRITER_DOCS_DIRECTORY = @"/Users/earltagra/Library/Mobile Documents/74ZAFF46HB~jp~informationarchitects~Writer/Documents/";
+
 
 
 
@@ -163,9 +165,9 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     
     NSMutableArray *allRules = [[userDefaults arrayForKey:ALL_RULES_KEY] mutableCopy];
     
-    
-    NSURL *rulesDirectory = [self.goalCardDirectory URLByAppendingPathComponent:@"Rules"];
-    NSURL *privateRulesDirectory = [self.goalCardDirectory URLByAppendingPathComponent:@"Private Rules"];
+    NSURL *docsDirectory = [NSURL fileURLWithPath:IAWRITER_DOCS_DIRECTORY];
+    NSURL *rulesDirectory = [docsDirectory URLByAppendingPathComponent:@"Rules"];
+    NSURL *privateRulesDirectory = [docsDirectory URLByAppendingPathComponent:@"Private Rules"];
 
     
     if (allRules == nil || [allRules count]== 0 ) {
@@ -202,35 +204,6 @@ NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
     [userDefaults setObject:allInspirationalTexts forKey:ALL_INSPIRATIONAL_TEXTS_KEY];
 
 
-
-
-    //Get five images
-    /*
-    NSMutableArray *allImages = [[userDefaults arrayForKey:ALL_IMAGES_KEY] mutableCopy];
-    NSURL *imagesDirectory = [self.goalCardDirectory URLByAppendingPathComponent:@"images"];
-    
-    if (allImages == nil || [allImages count]== 0 ) {
-        
-        allImages = [[imagesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
-        
-        
-    }
-    
-    
-    
-    NSMutableArray *randomImages = [NSMutableArray array];
-    
-    
-    for (NSString *str in [allImages grab:5]) {
-        
-        
-        [randomImages addObject:[NSURL URLWithString:str]];
-
-    }
-    
-    
-    [itemsToShow addObjectsFromArray:randomImages];
-    [userDefaults setObject:allImages forKey:ALL_IMAGES_KEY];*/
     
     
     [userDefaults synchronize];
