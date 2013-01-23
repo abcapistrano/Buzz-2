@@ -13,10 +13,8 @@
 #import "QLPreviewPanel+Secret.h"
 
 @interface DJAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, QLPreviewPanelDataSource, QLPreviewPanelDelegate>
-@property NSURL *goalCardDirectory;
 @property QLPreviewPanel *panel;
 @property NSArray *quicklookItems;
-@property IBOutlet NSWindow *prefs;
 
 - (void) configureNotifications;
 @end

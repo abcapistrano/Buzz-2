@@ -10,13 +10,21 @@
 
 NSString * const ALL_AFFIRMATIONS_KEY = @"ALL_AFFIRMATIONS_KEY";
 NSString * const ALL_RULES_KEY = @"ALL_RULES_KEY";
-//NSString * const ALL_IMAGES_KEY = @"ALL_IMAGES_KEY";
-NSString * const ALL_INSPIRATIONAL_TEXTS_KEY = @"ALL_INSPIRATIONAL_TEXTS_KEY";
+NSString * const ALL_IMAGES_KEY = @"ALL_IMAGES_KEY";
+NSString * const ALL_LONG_MESSAGES_KEY = @"ALL_LONG_MESSAGES_KEY";
+NSString * const ALL_SHORT_MESSAGES_KEY = @"ALL_SHORT_MESSAGES_KEY";
+NSString * const PRESENTATION_MODE_KEY = @"presentationMode";
 
 NSString * const IAWRITER_DOCS_DIRECTORY = @"/Users/earltagra/Library/Mobile Documents/74ZAFF46HB~jp~informationarchitects~Writer/Documents/";
 
 
+typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
+    DJRulesPresentationMode,
+    DJShortMessagesPresentationMode,
+    DJLongMessagesPresentationMode,
+
+};
 
 
 @implementation DJAppDelegate
@@ -24,8 +32,6 @@ NSString * const IAWRITER_DOCS_DIRECTORY = @"/Users/earltagra/Library/Mobile Doc
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 
-    self.goalCardDirectory = [NSURL fileURLWithPath:[@"~/Dropbox/Goal Card" stringByExpandingTildeInPath]];
-    
         
     [self configureNotifications];
 
@@ -69,7 +75,7 @@ NSString * const IAWRITER_DOCS_DIRECTORY = @"/Users/earltagra/Library/Mobile Doc
     nc.delegate = self;
     nc.scheduledNotifications = nil;
  //   [nc removeAllDeliveredNotifications];
-    
+
         
     
     NSUserNotification *note = [[NSUserNotification alloc] init];
@@ -128,86 +134,144 @@ NSString * const IAWRITER_DOCS_DIRECTORY = @"/Users/earltagra/Library/Mobile Doc
 
 - (void) showItems {
     
-    /*
-     
-     Two items in quick look shall be shown: (1) one text and (2) one image
-     
-     
-     */
     
     NSMutableArray * itemsToShow = [NSMutableArray array];
     
     
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    NSLog(@"%@", userDefaults);
-    
-    //Get one affirmation
-    
-    NSMutableArray *allAffirmations = [[userDefaults arrayForKey:ALL_AFFIRMATIONS_KEY] mutableCopy];
-    NSURL *affirmationsDirectory = [self.goalCardDirectory URLByAppendingPathComponent:@"Affirmations"];
-    
-    if (allAffirmations == nil || [allAffirmations count]== 0 ) {
-        
-        
-        allAffirmations = [[affirmationsDirectory valueForKeyPath:@"files.absoluteString"]  mutableCopy];
-     
-        
-        
-    }
-    
-    
-    NSURL *randomAffirmation = [NSURL URLWithString:[allAffirmations grab:1][0]];
-    [itemsToShow addObject:randomAffirmation];
-    [userDefaults setObject:allAffirmations forKey:ALL_AFFIRMATIONS_KEY];    
-    
-    
-    //Get one Rule
-    
-    NSMutableArray *allRules = [[userDefaults arrayForKey:ALL_RULES_KEY] mutableCopy];
-    
+
+    NSUInteger lastPresentationMode = [userDefaults integerForKey:PRESENTATION_MODE_KEY];
+    NSUInteger newPresentationMode = (lastPresentationMode + 1) % 3;
+    [userDefaults setInteger:newPresentationMode forKey:PRESENTATION_MODE_KEY];
+
     NSURL *docsDirectory = [NSURL fileURLWithPath:IAWRITER_DOCS_DIRECTORY];
-    NSURL *rulesDirectory = [docsDirectory URLByAppendingPathComponent:@"Rules"];
-    NSURL *privateRulesDirectory = [docsDirectory URLByAppendingPathComponent:@"Private Rules"];
 
-    
-    if (allRules == nil || [allRules count]== 0 ) {
+
+    if (newPresentationMode == DJRulesPresentationMode) {
+
+        //Get one Rule
+
+        NSMutableArray *allRules = [[userDefaults arrayForKey:ALL_RULES_KEY] mutableCopy];
+
+        NSURL *rulesDirectory = [docsDirectory URLByAppendingPathComponent:@"Rules"];
+
+
+        if (allRules == nil || [allRules count]== 0 ) {
+
+
+            allRules = [[rulesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
+
+
+
+        }
+
+
+        NSURL *randomRule =  [NSURL URLWithString: [allRules grab:1][0]];
+        [itemsToShow addObject:randomRule];
+        [userDefaults setObject:allRules forKey:ALL_RULES_KEY];
+
+    } else if (newPresentationMode == DJShortMessagesPresentationMode) {
+
+        // Get affirmation + image + short message
+
+
+
+        //Get one affirmation
+
+        NSMutableArray *allAffirmations = [[userDefaults arrayForKey:ALL_AFFIRMATIONS_KEY] mutableCopy];
+        NSURL *affirmationsDirectory = [docsDirectory URLByAppendingPathComponent:@"Affirmations"];
+
+        if (allAffirmations == nil || [allAffirmations count]== 0 ) {
+
+
+            allAffirmations = [[affirmationsDirectory valueForKeyPath:@"files.absoluteString"]  mutableCopy];
+
+
+
+        }
+
+
+        NSURL *randomAffirmation = [NSURL URLWithString:[allAffirmations grab:1][0]];
+        [itemsToShow addObject:randomAffirmation];
+        [userDefaults setObject:allAffirmations forKey:ALL_AFFIRMATIONS_KEY];
+
+        
+        // Get short message
+
+        NSMutableArray *allShortMessages = [[userDefaults arrayForKey:ALL_SHORT_MESSAGES_KEY] mutableCopy];
+        NSURL *shortMessagesDirectory = [docsDirectory URLByAppendingPathComponent:@"Short Messages"];
+
+        if (allShortMessages == nil || [allShortMessages count]== 0 ) {
+
+
+            allShortMessages = [[shortMessagesDirectory valueForKeyPath:@"files.absoluteString"]  mutableCopy];
+
+
+
+        }
+
+
+        NSURL *randomShortMessage = [NSURL URLWithString:[allShortMessages grab:1][0]];
+        [itemsToShow addObject:randomShortMessage];
+        [userDefaults setObject:allShortMessages forKey:ALL_SHORT_MESSAGES_KEY];
+
+
+
+
+        //Get one image
+
+        NSMutableArray *allImages = [[userDefaults arrayForKey:ALL_IMAGES_KEY] mutableCopy];
+        NSURL *imagesDirectory = [NSURL fileURLWithPath:@"/Users/earltagra/Dropbox/Goal Card/Images"];;
+
+        if (allImages == nil || [allImages count]== 0 ) {
+
+            allImages = [[imagesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
+
+
+        }
+
+
+        NSURL *randomImage = [NSURL URLWithString: [allImages grab:1][0]];
+        [itemsToShow addObject:randomImage];
+        [userDefaults setObject:allImages forKey:ALL_IMAGES_KEY];
         
         
-        allRules = [[rulesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
-        [allRules addObjectsFromArray:[privateRulesDirectory valueForKeyPath:@"files.absoluteString"]];
         
         
+
+
+
+
+
+    } else if (newPresentationMode == DJLongMessagesPresentationMode) {
+
+        // get one long message
+
+        //Get one Rule
+
+        NSMutableArray *allLongMessages = [[userDefaults arrayForKey:ALL_LONG_MESSAGES_KEY] mutableCopy];
+
+        NSURL *longMessagesDirectory = [docsDirectory URLByAppendingPathComponent:@"Long Messages"];
+
+        if (allLongMessages == nil || [allLongMessages count]== 0 ) {
+
+
+            allLongMessages = [[longMessagesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
+
+
+
+        }
+
+
+        NSURL *randomLongMessage =  [NSURL URLWithString: [allLongMessages grab:1][0]];
+        [itemsToShow addObject:randomLongMessage];
+        [userDefaults setObject:allLongMessages forKey:ALL_LONG_MESSAGES_KEY];
         
     }
-    
-    
-    NSURL *randomRule =  [NSURL URLWithString: [allRules grab:1][0]];
-    [itemsToShow addObject:randomRule];
-    [userDefaults setObject:allRules forKey:ALL_RULES_KEY];
-
-    
-    //Get one inspirational text
-    
-    NSMutableArray *allInspirationalTexts = [[userDefaults arrayForKey:ALL_INSPIRATIONAL_TEXTS_KEY] mutableCopy];
-    NSURL *inspirationalTextsDirectory = [self.goalCardDirectory URLByAppendingPathComponent:@"Inspirational Texts"];
-    
-    if (allInspirationalTexts == nil || [allInspirationalTexts count]== 0 ) {
-        
-        allInspirationalTexts = [[inspirationalTextsDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
-               
-        
-    }
-    
-    
-    NSURL *randomInspirationalText = [NSURL URLWithString: [allInspirationalTexts grab:1][0]];
-    [itemsToShow addObject:randomInspirationalText];
-    [userDefaults setObject:allInspirationalTexts forKey:ALL_INSPIRATIONAL_TEXTS_KEY];
-
-
-    
     
     [userDefaults synchronize];
-    
+
+
     self.quicklookItems = itemsToShow;
     
     

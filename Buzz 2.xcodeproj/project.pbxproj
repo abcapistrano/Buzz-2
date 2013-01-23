@@ -195,7 +195,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "open $CONFIGURATION_BUILD_DIR\n";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 
