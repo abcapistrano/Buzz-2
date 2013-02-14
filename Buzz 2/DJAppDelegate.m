@@ -13,7 +13,6 @@ NSString * const ALL_RULES_KEY = @"ALL_RULES_KEY";
 NSString * const ALL_MOTIVATIONAL_IMAGES_KEY = @"ALL_IMAGES_KEY";
 NSString * const ALL_LONG_MESSAGES_KEY = @"ALL_LONG_MESSAGES_KEY";
 NSString * const ALL_SHORT_MESSAGES_KEY = @"ALL_SHORT_MESSAGES_KEY";
-NSString * const ALL_SEXY_IMAGES_KEY = @"ALL_SEXY_IMAGES_KEY";
 NSString * const PRESENTATION_MODE_KEY = @"presentationMode";
 
 NSString * const IAWRITER_DOCS_DIRECTORY = @"/Users/earltagra/Library/Mobile Documents/74ZAFF46HB~jp~informationarchitects~Writer/Documents/";
@@ -24,7 +23,6 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     DJRulesPresentationMode,
     DJShortMessagesPresentationMode,
     DJLongMessagesPresentationMode,
-    DJSexyImagesPresentationMode
 
 };
 
@@ -268,33 +266,6 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
         NSURL *randomLongMessage =  [NSURL URLWithString: [allLongMessages grab:1][0]];
         [itemsToShow addObject:randomLongMessage];
         [userDefaults setObject:allLongMessages forKey:ALL_LONG_MESSAGES_KEY];
-        
-    } else if (newPresentationMode == DJSexyImagesPresentationMode) {
-
-        NSMutableArray *allSexyImages = [[userDefaults arrayForKey:ALL_SEXY_IMAGES_KEY] mutableCopy];
-        NSURL *sexyImagesDirectory = [NSURL fileURLWithPath:@"/Users/earltagra/Dropbox/Goal Card/Sexy Images"];
-
-
-        if (allSexyImages == nil || [allSexyImages count]== 0 ) {
-
-            allSexyImages = [[sexyImagesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
-
-
-        }
-
-        NSArray *randomImages = [allSexyImages grab:5];
-        [randomImages enumerateObjectsUsingBlock:^(NSString* anImage, NSUInteger idx, BOOL *stop) {
-
-            NSURL *url = [NSURL URLWithString:anImage];
-            [itemsToShow addObject:url];
-
-
-        }];
-
-        [userDefaults setObject:allSexyImages forKey:ALL_SEXY_IMAGES_KEY];
-
-
-
         
     }
     
