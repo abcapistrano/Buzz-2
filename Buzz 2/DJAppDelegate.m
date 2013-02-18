@@ -141,7 +141,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
 
     NSUInteger lastPresentationMode = [userDefaults integerForKey:PRESENTATION_MODE_KEY];
-    NSUInteger newPresentationMode = (lastPresentationMode + 1) % 4;
+    NSUInteger newPresentationMode = (lastPresentationMode + 1) % 3;
     [userDefaults setInteger:newPresentationMode forKey:PRESENTATION_MODE_KEY];
 
     NSURL *docsDirectory = [NSURL fileURLWithPath:IAWRITER_DOCS_DIRECTORY];
