@@ -14,6 +14,7 @@
 		FD1D64D21672F5F500425252 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD1D64D01672F5F500425252 /* MainMenu.xib */; };
 		FD1D64D91672F60500425252 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1D64D81672F60500425252 /* Quartz.framework */; };
 		FD1D64DF1672F67000425252 /* Icon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = FD1D64DE1672F67000425252 /* Icon.iconset */; };
+		FD32382916F16F8D006EBEBC /* NOT SAFE FOR WORK.pdf in Resources */ = {isa = PBXBuildFile; fileRef = FD32382816F16F8D006EBEBC /* NOT SAFE FOR WORK.pdf */; };
 		FD39E64F1672F986008134E4 /* NSURL+DirectoryEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = FD39E64C1672F986008134E4 /* NSURL+DirectoryEnumerator.m */; };
 		FD39E6501672F986008134E4 /* NSArray+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = FD39E64E1672F986008134E4 /* NSArray+ConvenienceMethods.m */; };
 		FD39E6511672F9E7008134E4 /* DJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1D64DD1672F64F00425252 /* DJAppDelegate.m */; };
@@ -35,6 +36,7 @@
 		FD1D64DC1672F64F00425252 /* DJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJAppDelegate.h; sourceTree = "<group>"; };
 		FD1D64DD1672F64F00425252 /* DJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJAppDelegate.m; sourceTree = "<group>"; };
 		FD1D64DE1672F67000425252 /* Icon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Icon.iconset; sourceTree = "<group>"; };
+		FD32382816F16F8D006EBEBC /* NOT SAFE FOR WORK.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NOT SAFE FOR WORK.pdf"; sourceTree = "<group>"; };
 		FD39E64A1672F986008134E4 /* QLPreviewPanel+Secret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QLPreviewPanel+Secret.h"; sourceTree = "<group>"; };
 		FD39E64B1672F986008134E4 /* NSURL+DirectoryEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DirectoryEnumerator.h"; sourceTree = "<group>"; };
 		FD39E64C1672F986008134E4 /* NSURL+DirectoryEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DirectoryEnumerator.m"; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 		FD1D64C21672F5F500425252 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FD32382816F16F8D006EBEBC /* NOT SAFE FOR WORK.pdf */,
 				FD1D64DE1672F67000425252 /* Icon.iconset */,
 				FD1D64C31672F5F500425252 /* Buzz 2-Info.plist */,
 				FD1D64C41672F5F500425252 /* InfoPlist.strings */,
@@ -178,6 +181,7 @@
 				FD1D64CC1672F5F500425252 /* Credits.rtf in Resources */,
 				FD1D64D21672F5F500425252 /* MainMenu.xib in Resources */,
 				FD1D64DF1672F67000425252 /* Icon.iconset in Resources */,
+				FD32382916F16F8D006EBEBC /* NOT SAFE FOR WORK.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
