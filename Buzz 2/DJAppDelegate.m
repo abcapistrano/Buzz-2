@@ -42,12 +42,15 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
 - (void) startTimer {
 
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:10*60 target:self selector:@selector(prompt) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:10*60 target:self selector:@selector(prompt) userInfo:nil repeats:NO];
 
 }
 
 - (void) prompt {
 
+    [self.timer invalidate];
+    self.timer = nil;
+    
     [NSApp activateIgnoringOtherApps:YES];
 
     NSInteger result = NSRunAlertPanel(@"Buzz", @"Do you want to see something motivating?" , @"Go Ahead", @"Quit Buzz", @"Dismiss");
@@ -58,14 +61,10 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
         [NSApp terminate:self];
     }
-    
 
-}
 
-- (void) invalidateTimer {
+    [self startTimer];
 
-    [self.timer invalidate];
-    self.timer = nil;
 
 }
 
@@ -78,8 +77,6 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 - (void) showItems {
     
 
-
-    [self invalidateTimer];
 
     NSMutableArray * itemsToShow = [NSMutableArray array];
     
@@ -282,10 +279,6 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     
     [self.panel makeKeyAndOrderFront:self];
     [self.panel enterFullScreenMode:[NSScreen mainScreen] withOptions:nil];
-    
-    
-    
-    [self startTimer];
     
   
     
