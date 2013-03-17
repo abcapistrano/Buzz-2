@@ -94,15 +94,15 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
         newPresentationMode = DJRulesPresentationMode;
     }
 
-    NSLog(@"Rules: %lu\n"
-          @"Short: %lu\n"
-          @"Long: %lu\n"
-          @"Sexy %lu\n"
-          @"Count: %lu\n"
-          @"Last %lu\n"
-          @"New: %lu\n"
-          , DJRulesPresentationMode, DJShortMessagesPresentationMode, DJLongMessagesPresentationMode, DJSexyImagesPresentationMode, DJPresentationModesCount, lastPresentationMode, newPresentationMode);
-
+//    NSLog(@"Rules: %lu\n"
+//          @"Short: %lu\n"
+//          @"Long: %lu\n"
+//          @"Sexy %lu\n"
+//          @"Count: %lu\n"
+//          @"Last %lu\n"
+//          @"New: %lu\n"
+//          , DJRulesPresentationMode, DJShortMessagesPresentationMode, DJLongMessagesPresentationMode, DJSexyImagesPresentationMode, DJPresentationModesCount, lastPresentationMode, newPresentationMode);
+//
 
 
 
