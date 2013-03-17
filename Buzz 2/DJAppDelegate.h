@@ -15,6 +15,6 @@
 @interface DJAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, QLPreviewPanelDataSource, QLPreviewPanelDelegate>
 @property QLPreviewPanel *panel;
 @property NSArray *quicklookItems;
+@property NSTimer *timer;
 
-- (void) configureNotifications;
 @end

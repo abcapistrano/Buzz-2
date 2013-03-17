@@ -20,13 +20,11 @@ NSString * const IAWRITER_DOCS_DIRECTORY = @"/Users/earltagra/Library/Mobile Doc
 
 
 typedef NS_ENUM(NSUInteger, DJPresentationMode) {
-
     DJRulesPresentationMode,
     DJShortMessagesPresentationMode,
     DJLongMessagesPresentationMode,
     DJSexyImagesPresentationMode,
     DJPresentationModesCount
-
 };
 
 
@@ -35,100 +33,42 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 
-        
-    [self configureNotifications];
+    [self prompt];
+    [self startTimer];
 
-    NSUserNotification *note = aNotification.userInfo[NSApplicationLaunchUserNotificationKey];
-    if (note) {
-        
-        NSUserNotificationCenter *nc = [NSUserNotificationCenter defaultUserNotificationCenter];
-        [nc removeDeliveredNotification:note];
-        
+
+    
+}
+
+- (void) startTimer {
+
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:10*60 target:self selector:@selector(prompt) userInfo:nil repeats:YES];
+
+}
+
+- (void) prompt {
+
+    [NSApp activateIgnoringOtherApps:YES];
+
+    NSInteger result = NSRunAlertPanel(@"Buzz", @"Do you want to see something motivating?" , @"Go Ahead", @"Quit Buzz", @"Dismiss");
+
+    if (result == NSAlertDefaultReturn) {
         [self showItems];
-        
-        
-    } else {
-        
-
-#ifdef RELEASE
-        
-        
+    } else if (result == NSAlertAlternateReturn) {
 
         [NSApp terminate:self];
-
-        
-#endif
-        
-
-        
-
-
-        
     }
     
-    
 
-    
 }
 
-- (void) configureNotifications {
-    
-    NSUserNotificationCenter *nc = [NSUserNotificationCenter defaultUserNotificationCenter];
-    [nc removeAllDeliveredNotifications];
-    nc.delegate = self;
-    nc.scheduledNotifications = nil;
- //   [nc removeAllDeliveredNotifications];
+- (void) invalidateTimer {
 
-        
-    
-    NSUserNotification *note = [[NSUserNotification alloc] init];
-    note.title = @"Buzz 2";
-    note.informativeText = @"Wollen Sie etwas zu motivieren?";
-    // deliver notification after 10 minutes
-    
-#ifdef DEBUG
-    
-    [nc deliverNotification:note];
-    
-#else
-    
-    NSInteger delay = 10;
-    
-    note.deliveryDate = [NSDate dateWithTimeIntervalSinceNow:delay*60];
-    NSDateComponents *dc = [[NSDateComponents alloc] init];
-    
-    dc.minute = delay;
-    note.deliveryRepeatInterval = dc;
-    [nc scheduleNotification:note];
-    
-#endif
-    
+    [self.timer invalidate];
+    self.timer = nil;
 
-    
-    
-    
-    
 }
 
-
-- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
-    
-    return YES;
-}
-
-#ifdef DEBUG
-
-- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
-    
-    NSUserNotificationCenter *nc = [NSUserNotificationCenter defaultUserNotificationCenter];
-    [nc removeDeliveredNotification:notification];
-    
-    [self showItems];
-    
-    
-}
-
-#endif
 
 # pragma mark methods relating to displaying the goal card
 
@@ -137,19 +77,34 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
 - (void) showItems {
     
-    
+
+
+    [self invalidateTimer];
+
     NSMutableArray * itemsToShow = [NSMutableArray array];
     
     
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
 
     NSUInteger lastPresentationMode = [userDefaults integerForKey:PRESENTATION_MODE_KEY];
-    NSUInteger newPresentationMode = (lastPresentationMode + 1);
+    NSUInteger newPresentationMode = lastPresentationMode + 1;
 
     if (newPresentationMode == DJPresentationModesCount) {
 
         newPresentationMode = DJRulesPresentationMode;
     }
+
+    NSLog(@"Rules: %lu\n"
+          @"Short: %lu\n"
+          @"Long: %lu\n"
+          @"Sexy %lu\n"
+          @"Count: %lu\n"
+          @"Last %lu\n"
+          @"New: %lu\n"
+          , DJRulesPresentationMode, DJShortMessagesPresentationMode, DJLongMessagesPresentationMode, DJSexyImagesPresentationMode, DJPresentationModesCount, lastPresentationMode, newPresentationMode);
+
+
+
 
     [userDefaults setInteger:newPresentationMode forKey:PRESENTATION_MODE_KEY];
     NSURL *docsDirectory = [NSURL fileURLWithPath:IAWRITER_DOCS_DIRECTORY];
@@ -329,9 +284,8 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     [self.panel enterFullScreenMode:[NSScreen mainScreen] withOptions:nil];
     
     
-    // Remove delivered notifications
     
-
+    [self startTimer];
     
   
     
@@ -368,10 +322,8 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 }
 
 - (void) endPreviewPanelControl:(QLPreviewPanel *)panel {
-  
-    [NSApp terminate:self];
 
-    
+    [NSApp hide:self];
     
 }
 
