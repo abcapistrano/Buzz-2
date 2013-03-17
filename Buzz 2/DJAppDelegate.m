@@ -21,7 +21,7 @@ NSString * const IAWRITER_DOCS_DIRECTORY = @"/Users/earltagra/Library/Mobile Doc
 
 typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
-    DJRulesPresentationMode = 1,
+    DJRulesPresentationMode,
     DJShortMessagesPresentationMode,
     DJLongMessagesPresentationMode,
     DJSexyImagesPresentationMode,
