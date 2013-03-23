@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 }
 
 - (void) goAhead:(id)sender {
-   // [self.window orderOut:self];
+    [self.window orderOut:self];
 
     NSMutableArray * itemsToShow = [NSMutableArray array];
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
