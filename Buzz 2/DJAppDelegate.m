@@ -33,6 +33,11 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
 @implementation DJAppDelegate
 
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+
+    [self prompt];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 
@@ -44,15 +49,15 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 }
 
 - (void) startTimer {
-
+    [self.timer invalidate];
+    self.timer = nil;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:10*60 target:self selector:@selector(prompt) userInfo:nil repeats:NO];
 
 }
 
 - (void) prompt {
     
-    [self.timer invalidate];
-    self.timer = nil;
+
     
     [NSApp activateIgnoringOtherApps:YES];
     [self.window center];
@@ -80,6 +85,8 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     [self.window orderOut:self];
 
     //delay for three hours;
+    [self.timer invalidate];
+    self.timer = nil;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:10*60*3 target:self selector:@selector(prompt) userInfo:nil repeats:NO];
 
 
@@ -88,6 +95,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 - (void) dismiss:(id)sender {
     [self.window orderOut:self];
     [self startTimer];
+    [NSApp hide:self];
 
 
 
