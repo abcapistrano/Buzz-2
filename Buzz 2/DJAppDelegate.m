@@ -8,25 +8,28 @@
 
 #import "DJAppDelegate.h"
 
-NSString * const ALL_AFFIRMATIONS_KEY = @"ALL_AFFIRMATIONS_KEY";
-NSString * const ALL_RULES_KEY = @"ALL_RULES_KEY";
-NSString * const ALL_MOTIVATIONAL_IMAGES_KEY = @"ALL_IMAGES_KEY";
-NSString * const ALL_LONG_MESSAGES_KEY = @"ALL_LONG_MESSAGES_KEY";
-NSString * const ALL_SHORT_MESSAGES_KEY = @"ALL_SHORT_MESSAGES_KEY";
-NSString * const ALL_SEXY_IMAGES_KEY = @"ALL_SEXY_IMAGES_KEY";
-NSString * const PRESENTATION_MODE_KEY = @"presentationMode";
+NSString * const ALL_AFFIRMATIONS_KEY = @"ALL_AFFIRMATIONS";
+NSString * const ALL_RULES_KEY = @"ALL_RULES";
+NSString * const ALL_MOTIVATIONAL_IMAGES_KEY = @"ALL_SEXY_IMAGES";
+NSString * const ALL_MESSAGES_KEY = @"ALL_MESSAGES";
+NSString * const ALL_SEXY_IMAGES_KEY = @"ALL_SEXY_IMAGES";
+NSString * const ALL_SEXY_VIDEOS_KEY = @"ALL_SEXY_VIDEOS";
 
-NSString * const IAWRITER_DOCS_DIRECTORY = @"/Users/earltagra/Library/Mobile Documents/74ZAFF46HB~jp~informationarchitects~Writer/Documents/";
+NSString * const PRESENTATION_ORDER_KEY = @"presentationOrder";
+
+
+
+NSString * const APP_SUPPORT_DIRECTORY = @"/Users/earltagra/Library/Application Support/com.demonjelly.Buzz-2";
 
 
 typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     DJRulesPresentationMode,
-    DJShortMessagesPresentationMode,
-    DJLongMessagesPresentationMode,
+    DJSexyVideosPresentationMode,
+    DJMessagesPresentationMode,
+    DJMotivationalImagesPresentationMode,
     DJSexyImagesPresentationMode,
-    DJPresentationModesCount
+    DJAffirmationsPresentationMode
 };
-
 
 @implementation DJAppDelegate
 
@@ -47,242 +50,187 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 }
 
 - (void) prompt {
-
+    
     [self.timer invalidate];
     self.timer = nil;
     
     [NSApp activateIgnoringOtherApps:YES];
+    [self.window center];
+    [self.window makeKeyAndOrderFront:self];
 
-    NSInteger result = NSRunAlertPanel(@"Buzz", @"Do you want to see something motivating?" , @"Go Ahead", @"Quit Buzz", @"Dismiss");
-
-    if (result == NSAlertDefaultReturn) {
-        [self showItems];
-    } else if (result == NSAlertAlternateReturn) {
-
-        [NSApp terminate:self];
-    }
-
-
-    [self startTimer];
-
+   
 
 }
 
 
-# pragma mark methods relating to displaying the goal card
+- (void) configure:(id)sender {
 
-// This method asks the user where the location of Goal Card data
+    NSURL *appSupportDirectory = [NSURL fileURLWithPath:APP_SUPPORT_DIRECTORY];
+
+    [[NSWorkspace sharedWorkspace] openURL:appSupportDirectory];
+
+    [self.window orderOut:self];
 
 
-- (void) showItems {
-    
 
+
+}
+
+- (void) delay:(id)sender {
+    [self.window orderOut:self];
+
+    //delay for three hours;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:10*60*3 target:self selector:@selector(prompt) userInfo:nil repeats:NO];
+
+
+}
+
+- (void) dismiss:(id)sender {
+    [self.window orderOut:self];
+    [self startTimer];
+
+
+
+}
+
+// returns an NSArray of NSURLs
+- (NSArray *) getResourcesWithKey: (NSString *) resourceKey count: (NSUInteger) max {
+    NSURL *appSupportDirectory = [NSURL fileURLWithPath:APP_SUPPORT_DIRECTORY];
+    NSURL *resourcesDirectory = [appSupportDirectory URLByAppendingPathComponent:resourceKey];
+
+
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *allResources = [[userDefaults arrayForKey:resourceKey] mutableCopy];
+
+    if ([allResources count]== 0 ) {
+
+        allResources = [[resourcesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
+
+
+
+    }
+
+    NSMutableArray *resources = [NSMutableArray array];
+    [allResources enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+
+        NSURL *url = [NSURL URLWithString:obj];
+        [resources addObject:url];
+
+
+    }];
+
+    NSArray *results = [resources grab:max];
+    [userDefaults setObject:allResources forKey:resourceKey];
+    [userDefaults synchronize];
+    return results;
+
+
+}
+
+- (void) goAhead:(id)sender {
+   // [self.window orderOut:self];
 
     NSMutableArray * itemsToShow = [NSMutableArray array];
-    
-    
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *presentationOrder = [[userDefaults arrayForKey:PRESENTATION_ORDER_KEY] mutableCopy];
 
-    NSUInteger lastPresentationMode = [userDefaults integerForKey:PRESENTATION_MODE_KEY];
-    NSUInteger newPresentationMode = lastPresentationMode + 1;
+    if ([presentationOrder count] == 0 ) {
+        presentationOrder = [@[
 
-    if (newPresentationMode == DJPresentationModesCount) {
+                             @(DJRulesPresentationMode),
+                             @(DJAffirmationsPresentationMode),
 
-        newPresentationMode = DJRulesPresentationMode;
+                             @(DJSexyVideosPresentationMode),
+                             @(DJAffirmationsPresentationMode),
+
+                             @(DJMessagesPresentationMode),
+                             @(DJAffirmationsPresentationMode),
+
+                             @(DJMotivationalImagesPresentationMode),
+                             @(DJAffirmationsPresentationMode),
+
+                             @(DJSexyImagesPresentationMode),
+                             @(DJAffirmationsPresentationMode)
+                             
+                             
+                             
+                             ] mutableCopy];
+
+
+
     }
 
-//    NSLog(@"Rules: %lu\n"
-//          @"Short: %lu\n"
-//          @"Long: %lu\n"
-//          @"Sexy %lu\n"
-//          @"Count: %lu\n"
-//          @"Last %lu\n"
-//          @"New: %lu\n"
-//          , DJRulesPresentationMode, DJShortMessagesPresentationMode, DJLongMessagesPresentationMode, DJSexyImagesPresentationMode, DJPresentationModesCount, lastPresentationMode, newPresentationMode);
-//
+    NSNumber* top = [presentationOrder objectAtIndex:0];
+    [presentationOrder removeObjectAtIndex:0];
 
+    DJPresentationMode newPresentationMode = [top integerValue];
 
+    NSURL *nsfwPage = [[NSBundle mainBundle] URLForResource:@"NOT SAFE FOR WORK" withExtension:@"pdf"];
 
-    [userDefaults setInteger:newPresentationMode forKey:PRESENTATION_MODE_KEY];
-    NSURL *docsDirectory = [NSURL fileURLWithPath:IAWRITER_DOCS_DIRECTORY];
+    switch (newPresentationMode) {
+        case DJRulesPresentationMode:
 
 
-    if (newPresentationMode == DJRulesPresentationMode) {
+            [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_RULES_KEY count:1]];
+            
+            break;
+        case DJSexyVideosPresentationMode:
+            [itemsToShow addObject:nsfwPage];
+            [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_SEXY_VIDEOS_KEY count:1]];
 
-        //Get one Rule
 
-        NSMutableArray *allRules = [[userDefaults arrayForKey:ALL_RULES_KEY] mutableCopy];
+            break;
+        case DJMessagesPresentationMode:
 
-        NSURL *rulesDirectory = [docsDirectory URLByAppendingPathComponent:@"Rules"];
+            [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_MESSAGES_KEY count:1]];
 
 
-        if (allRules == nil || [allRules count]== 0 ) {
+            break;
+        case DJMotivationalImagesPresentationMode:
 
+            [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_MOTIVATIONAL_IMAGES_KEY count:1]];
 
-            allRules = [[rulesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
+            break;
+        case DJSexyImagesPresentationMode:
 
 
+            [itemsToShow addObject:nsfwPage];
+            [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_SEXY_IMAGES_KEY count:5]];
 
-        }
 
+            
+            break;
+        case DJAffirmationsPresentationMode:
 
-        NSURL *randomRule =  [NSURL URLWithString: [allRules grab:1][0]];
-        [itemsToShow addObject:randomRule];
-        [userDefaults setObject:allRules forKey:ALL_RULES_KEY];
+            [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_AFFIRMATIONS_KEY count:1]];
 
-    } else if (newPresentationMode == DJShortMessagesPresentationMode) {
+            break;
 
-        // Get affirmation + image + short message
-
-
-
-        //Get one affirmation
-
-        NSMutableArray *allAffirmations = [[userDefaults arrayForKey:ALL_AFFIRMATIONS_KEY] mutableCopy];
-        NSURL *affirmationsDirectory = [docsDirectory URLByAppendingPathComponent:@"Affirmations"];
-
-        if (allAffirmations == nil || [allAffirmations count]== 0 ) {
-
-
-            allAffirmations = [[affirmationsDirectory valueForKeyPath:@"files.absoluteString"]  mutableCopy];
-
-
-
-        }
-
-
-        NSURL *randomAffirmation = [NSURL URLWithString:[allAffirmations grab:1][0]];
-        [itemsToShow addObject:randomAffirmation];
-        [userDefaults setObject:allAffirmations forKey:ALL_AFFIRMATIONS_KEY];
-
-        
-        // Get short message
-
-        NSMutableArray *allShortMessages = [[userDefaults arrayForKey:ALL_SHORT_MESSAGES_KEY] mutableCopy];
-        NSURL *shortMessagesDirectory = [docsDirectory URLByAppendingPathComponent:@"Short Messages"];
-
-        if (allShortMessages == nil || [allShortMessages count]== 0 ) {
-
-
-            allShortMessages = [[shortMessagesDirectory valueForKeyPath:@"files.absoluteString"]  mutableCopy];
-
-
-
-        }
-
-
-        NSURL *randomShortMessage = [NSURL URLWithString:[allShortMessages grab:1][0]];
-        [itemsToShow addObject:randomShortMessage];
-        [userDefaults setObject:allShortMessages forKey:ALL_SHORT_MESSAGES_KEY];
-
-
-
-
-        //Get one image
-
-        NSMutableArray *allMotivationalImages = [[userDefaults arrayForKey:ALL_MOTIVATIONAL_IMAGES_KEY] mutableCopy];
-        NSURL *imagesDirectory = [NSURL fileURLWithPath:@"/Users/earltagra/Dropbox/Goal Card/Motivational Images"];;
-
-        if (allMotivationalImages == nil || [allMotivationalImages count]== 0 ) {
-
-            allMotivationalImages = [[imagesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
-
-
-        }
-
-
-        NSURL *randomImage = [NSURL URLWithString: [allMotivationalImages grab:1][0]];
-        [itemsToShow addObject:randomImage];
-        [userDefaults setObject:allMotivationalImages forKey:ALL_MOTIVATIONAL_IMAGES_KEY];
-        
-        
-        
-        
-
-
-
-
-
-    } else if (newPresentationMode == DJLongMessagesPresentationMode) {
-
-        // get one long message
-
-        //Get one Rule
-
-        NSMutableArray *allLongMessages = [[userDefaults arrayForKey:ALL_LONG_MESSAGES_KEY] mutableCopy];
-
-        NSURL *longMessagesDirectory = [docsDirectory URLByAppendingPathComponent:@"Long Messages"];
-
-        if (allLongMessages == nil || [allLongMessages count]== 0 ) {
-
-
-            allLongMessages = [[longMessagesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
-
-
-
-        }
-
-
-        NSURL *randomLongMessage =  [NSURL URLWithString: [allLongMessages grab:1][0]];
-        [itemsToShow addObject:randomLongMessage];
-        [userDefaults setObject:allLongMessages forKey:ALL_LONG_MESSAGES_KEY];
-        
-    } else if (newPresentationMode == DJSexyImagesPresentationMode) {
-
-        NSMutableArray *allSexyImages = [[userDefaults arrayForKey:ALL_SEXY_IMAGES_KEY] mutableCopy];
-        NSURL *sexyImagesDirectory = [NSURL fileURLWithPath:@"/Users/earltagra/Dropbox/Goal Card/Sexy Images"];
-
-
-        // add the NSFW page
-
-        NSURL *page = [[NSBundle mainBundle] URLForResource:@"NOT SAFE FOR WORK" withExtension:@"pdf"];
-        [itemsToShow addObject:page];
-
-
-        if (allSexyImages == nil || [allSexyImages count]== 0 ) {
-
-            allSexyImages = [[sexyImagesDirectory valueForKeyPath:@"files.absoluteString"] mutableCopy];
-
-
-        }
-
-        NSArray *randomImages = [allSexyImages grab:5];
-        [randomImages enumerateObjectsUsingBlock:^(NSString* anImage, NSUInteger idx, BOOL *stop) {
-
-            NSURL *url = [NSURL URLWithString:anImage];
-            [itemsToShow addObject:url];
-
-
-        }];
-        
-        [userDefaults setObject:allSexyImages forKey:ALL_SEXY_IMAGES_KEY];
-        
-        
-        
-        
     }
+
     
+    [userDefaults setObject:presentationOrder forKey:PRESENTATION_ORDER_KEY];
     [userDefaults synchronize];
 
 
     self.quicklookItems = itemsToShow;
-    
-    
+
+
     self.panel = [QLPreviewPanel sharedPreviewPanel];
+    [self.panel updateController];
+    
     self.panel.dataSource = self;
     self.panel.delegate = self;
-    
-    
-    [self.panel updateController];
+
+
     [self.panel setAutostarts:NO];
 
-    
+
     [self.panel makeKeyAndOrderFront:self];
     [self.panel enterFullScreenMode:[NSScreen mainScreen] withOptions:nil];
-    
-  
-    
-    
+
+
+
 }
 
 
@@ -316,6 +264,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
 - (void) endPreviewPanelControl:(QLPreviewPanel *)panel {
 
+    [self startTimer];
     [NSApp hide:self];
     
 }

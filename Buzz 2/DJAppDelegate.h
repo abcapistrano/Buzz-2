@@ -16,5 +16,14 @@
 @property QLPreviewPanel *panel;
 @property NSArray *quicklookItems;
 @property NSTimer *timer;
+@property (weak) IBOutlet NSWindow *window;
+
+
+
+// BUTTON ACTIONS
+- (IBAction)configure:(id)sender;
+- (IBAction)delay:(id)sender;
+- (IBAction)dismiss:(id)sender;
+- (IBAction)goAhead:(id)sender;
 
 @end
