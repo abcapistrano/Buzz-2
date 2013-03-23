@@ -10,7 +10,7 @@
 
 NSString * const ALL_AFFIRMATIONS_KEY = @"ALL_AFFIRMATIONS";
 NSString * const ALL_RULES_KEY = @"ALL_RULES";
-NSString * const ALL_MOTIVATIONAL_IMAGES_KEY = @"ALL_SEXY_IMAGES";
+NSString * const ALL_MOTIVATIONAL_IMAGES_KEY = @"ALL_MOTIVATIONAL_IMAGES";
 NSString * const ALL_MESSAGES_KEY = @"ALL_MESSAGES";
 NSString * const ALL_SEXY_IMAGES_KEY = @"ALL_SEXY_IMAGES";
 NSString * const ALL_SEXY_VIDEOS_KEY = @"ALL_SEXY_VIDEOS";
@@ -127,6 +127,12 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
     }];
 
+    if ([resourceKey isEqualToString:ALL_SEXY_IMAGES_KEY] && [resources count] == 1) {
+
+        NSLog(@"trap");
+
+    }
+
     NSArray *results = [resources grab:max];
     [userDefaults setObject:allResources forKey:resourceKey];
     [userDefaults synchronize];
@@ -174,7 +180,6 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     DJPresentationMode newPresentationMode = [top integerValue];
 
     NSURL *nsfwPage = [[NSBundle mainBundle] URLForResource:@"NOT SAFE FOR WORK" withExtension:@"pdf"];
-
     switch (newPresentationMode) {
         case DJRulesPresentationMode:
 
@@ -205,6 +210,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
             [itemsToShow addObject:nsfwPage];
             [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_SEXY_IMAGES_KEY count:5]];
 
+            NSLog(@"%@ %lu", itemsToShow, [itemsToShow count]);
 
             
             break;
@@ -224,14 +230,12 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     self.quicklookItems = itemsToShow;
 
 
+    NSLog(@"count: %lu", [itemsToShow count]);
+
     self.panel = [QLPreviewPanel sharedPreviewPanel];
-    [self.panel updateController];
+   // [self.panel updateController];
     
-    self.panel.dataSource = self;
-    self.panel.delegate = self;
 
-
-    [self.panel setAutostarts:NO];
 
 
     [self.panel makeKeyAndOrderFront:self];
@@ -265,9 +269,12 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 }
 
 - (void) beginPreviewPanelControl:(QLPreviewPanel *)panel {
-    
-    
-    
+    self.panel.dataSource = self;
+    self.panel.delegate = self;
+    [self.panel setAutostarts:NO];
+
+
+
 }
 
 - (void) endPreviewPanelControl:(QLPreviewPanel *)panel {
