@@ -75,6 +75,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     [[NSWorkspace sharedWorkspace] openURL:appSupportDirectory];
 
     [self.window orderOut:self];
+    [self startTimer];
 
 
 
@@ -127,11 +128,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
     }];
 
-    if ([resourceKey isEqualToString:ALL_SEXY_IMAGES_KEY] && [resources count] == 1) {
 
-        NSLog(@"trap");
-
-    }
 
     NSArray *results = [resources grab:max];
     [userDefaults setObject:allResources forKey:resourceKey];
