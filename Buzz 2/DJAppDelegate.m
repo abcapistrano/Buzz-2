@@ -119,21 +119,22 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
     }
 
-    NSMutableArray *resources = [NSMutableArray array];
-    [allResources enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
 
-        NSURL *url = [NSURL URLWithString:obj];
-        [resources addObject:url];
-
-
-    }];
-
-
-
-    NSArray *results = [resources grab:max];
+    NSArray *results = [allResources grab:max];
     [userDefaults setObject:allResources forKey:resourceKey];
     [userDefaults synchronize];
-    return results;
+    
+
+    NSMutableArray *resourceURLs = [NSMutableArray array];
+    [results enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+
+        NSURL *url = [NSURL URLWithString:obj];
+        [resourceURLs addObject:url];
+
+
+    }];    
+ 
+    return [resourceURLs copy];
 
 
 }
