@@ -7,17 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "NSArray+ConvenienceMethods.h"
-#import "NSURL+DirectoryEnumerator.h"
+#import "MTRandom.h"
+#import "NSURL+FileManagement.h"
 #import <Quartz/Quartz.h>
 #import "QLPreviewPanel+Secret.h"
+@class iTunesApplication;
 
 @interface DJAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, QLPreviewPanelDataSource, QLPreviewPanelDelegate>
 @property QLPreviewPanel *panel;
 @property NSArray *quicklookItems;
 @property NSTimer *timer;
 @property (weak) IBOutlet NSWindow *window;
-
+@property (readonly) iTunesApplication* iTunes;
+@property (assign) BOOL isITunesPlaying;
 
 
 // BUTTON ACTIONS

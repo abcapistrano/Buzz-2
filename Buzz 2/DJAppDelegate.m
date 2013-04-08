@@ -7,7 +7,7 @@
 //
 
 #import "DJAppDelegate.h"
-
+#import "iTunes.H"
 NSString * const ALL_AFFIRMATIONS_KEY = @"ALL_AFFIRMATIONS";
 NSString * const ALL_RULES_KEY = @"ALL_RULES";
 NSString * const ALL_MOTIVATIONAL_IMAGES_KEY = @"ALL_MOTIVATIONAL_IMAGES";
@@ -32,7 +32,14 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 };
 
 @implementation DJAppDelegate
-
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+    }
+    return self;
+}
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
 
     [self prompt];
@@ -88,7 +95,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     //delay for three hours;
     [self.timer invalidate];
     self.timer = nil;
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:10*60*3 target:self selector:@selector(prompt) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:3*60*60 target:self selector:@selector(prompt) userInfo:nil repeats:NO];
 
 
 }
@@ -140,6 +147,9 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 }
 
 - (void) goAhead:(id)sender {
+
+
+
     [self.window orderOut:self];
 
     NSMutableArray * itemsToShow = [NSMutableArray array];
@@ -208,7 +218,6 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
             [itemsToShow addObject:nsfwPage];
             [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_SEXY_IMAGES_KEY count:5]];
 
-            NSLog(@"%@ %lu", itemsToShow, [itemsToShow count]);
 
             
             break;
@@ -228,7 +237,6 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     self.quicklookItems = itemsToShow;
 
 
-    NSLog(@"count: %lu", [itemsToShow count]);
 
     self.panel = [QLPreviewPanel sharedPreviewPanel];
    // [self.panel updateController];
@@ -239,6 +247,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     [self.panel makeKeyAndOrderFront:self];
     [self.panel enterFullScreenMode:[NSScreen mainScreen] withOptions:nil];
 
+    
 
 
 }
@@ -271,6 +280,10 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     self.panel.delegate = self;
     [self.panel setAutostarts:NO];
 
+    self.isITunesPlaying = (self.iTunes.playerState == iTunesEPlSPlaying);
+    if (self.isITunesPlaying) {
+        [self.iTunes pause];
+    }
 
 
 }
@@ -279,7 +292,11 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
     [self startTimer];
     [NSApp hide:self];
-    
+
+    if (self.isITunesPlaying) {
+        [self.iTunes playpause];
+    }
+
 }
 
 

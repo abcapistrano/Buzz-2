@@ -15,9 +15,10 @@
 		FD1D64D91672F60500425252 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1D64D81672F60500425252 /* Quartz.framework */; };
 		FD1D64DF1672F67000425252 /* Icon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = FD1D64DE1672F67000425252 /* Icon.iconset */; };
 		FD32382916F16F8D006EBEBC /* NOT SAFE FOR WORK.pdf in Resources */ = {isa = PBXBuildFile; fileRef = FD32382816F16F8D006EBEBC /* NOT SAFE FOR WORK.pdf */; };
-		FD39E64F1672F986008134E4 /* NSURL+DirectoryEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = FD39E64C1672F986008134E4 /* NSURL+DirectoryEnumerator.m */; };
-		FD39E6501672F986008134E4 /* NSArray+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = FD39E64E1672F986008134E4 /* NSArray+ConvenienceMethods.m */; };
 		FD39E6511672F9E7008134E4 /* DJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1D64DD1672F64F00425252 /* DJAppDelegate.m */; };
+		FD6CD07E171248110032EE16 /* MTRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6CD07D171248110032EE16 /* MTRandom.m */; };
+		FD6CD0811712481D0032EE16 /* NSURL+FileManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6CD0801712481D0032EE16 /* NSURL+FileManagement.m */; };
+		FD6CD085171248F50032EE16 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6CD084171248F50032EE16 /* ScriptingBridge.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,11 +38,13 @@
 		FD1D64DD1672F64F00425252 /* DJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJAppDelegate.m; sourceTree = "<group>"; };
 		FD1D64DE1672F67000425252 /* Icon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Icon.iconset; sourceTree = "<group>"; };
 		FD32382816F16F8D006EBEBC /* NOT SAFE FOR WORK.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NOT SAFE FOR WORK.pdf"; sourceTree = "<group>"; };
-		FD39E64A1672F986008134E4 /* QLPreviewPanel+Secret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QLPreviewPanel+Secret.h"; sourceTree = "<group>"; };
-		FD39E64B1672F986008134E4 /* NSURL+DirectoryEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DirectoryEnumerator.h"; sourceTree = "<group>"; };
-		FD39E64C1672F986008134E4 /* NSURL+DirectoryEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DirectoryEnumerator.m"; sourceTree = "<group>"; };
-		FD39E64D1672F986008134E4 /* NSArray+ConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ConvenienceMethods.h"; sourceTree = "<group>"; };
-		FD39E64E1672F986008134E4 /* NSArray+ConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ConvenienceMethods.m"; sourceTree = "<group>"; };
+		FD6CD07C171248110032EE16 /* MTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTRandom.h; path = ../../Headers/MTRandom.h; sourceTree = "<group>"; };
+		FD6CD07D171248110032EE16 /* MTRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTRandom.m; path = ../../Headers/MTRandom.m; sourceTree = "<group>"; };
+		FD6CD07F1712481D0032EE16 /* NSURL+FileManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+FileManagement.h"; path = "../../Headers/NSURL+FileManagement.h"; sourceTree = "<group>"; };
+		FD6CD0801712481D0032EE16 /* NSURL+FileManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+FileManagement.m"; path = "../../Headers/NSURL+FileManagement.m"; sourceTree = "<group>"; };
+		FD6CD082171248270032EE16 /* QLPreviewPanel+Secret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QLPreviewPanel+Secret.h"; path = "../../Headers/QLPreviewPanel+Secret.h"; sourceTree = "<group>"; };
+		FD6CD083171248D70032EE16 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iTunes.h; path = "../../iTunes DJ/iTunes.h"; sourceTree = "<group>"; };
+		FD6CD084171248F50032EE16 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD6CD085171248F50032EE16 /* ScriptingBridge.framework in Frameworks */,
 				FD1D64BC1672F5F500425252 /* Cocoa.framework in Frameworks */,
 				FD1D64D91672F60500425252 /* Quartz.framework in Frameworks */,
 			);
@@ -60,6 +64,7 @@
 		FD1D64AC1672F5F500425252 = {
 			isa = PBXGroup;
 			children = (
+				FD6CD084171248F50032EE16 /* ScriptingBridge.framework */,
 				FD1D64C11672F5F500425252 /* Buzz 2 */,
 				FD1D64BA1672F5F500425252 /* Frameworks */,
 				FD1D64B81672F5F500425252 /* Products */,
@@ -97,14 +102,15 @@
 		FD1D64C11672F5F500425252 /* Buzz 2 */ = {
 			isa = PBXGroup;
 			children = (
-				FD39E64A1672F986008134E4 /* QLPreviewPanel+Secret.h */,
-				FD39E64B1672F986008134E4 /* NSURL+DirectoryEnumerator.h */,
-				FD39E64C1672F986008134E4 /* NSURL+DirectoryEnumerator.m */,
-				FD39E64D1672F986008134E4 /* NSArray+ConvenienceMethods.h */,
-				FD39E64E1672F986008134E4 /* NSArray+ConvenienceMethods.m */,
+				FD6CD082171248270032EE16 /* QLPreviewPanel+Secret.h */,
+				FD6CD07F1712481D0032EE16 /* NSURL+FileManagement.h */,
+				FD6CD0801712481D0032EE16 /* NSURL+FileManagement.m */,
+				FD6CD07C171248110032EE16 /* MTRandom.h */,
+				FD6CD07D171248110032EE16 /* MTRandom.m */,
 				FD1D64D01672F5F500425252 /* MainMenu.xib */,
 				FD1D64DC1672F64F00425252 /* DJAppDelegate.h */,
 				FD1D64DD1672F64F00425252 /* DJAppDelegate.m */,
+				FD6CD083171248D70032EE16 /* iTunes.h */,
 				FD1D64C21672F5F500425252 /* Supporting Files */,
 			);
 			path = "Buzz 2";
@@ -210,8 +216,8 @@
 			files = (
 				FD39E6511672F9E7008134E4 /* DJAppDelegate.m in Sources */,
 				FD1D64C81672F5F500425252 /* main.m in Sources */,
-				FD39E64F1672F986008134E4 /* NSURL+DirectoryEnumerator.m in Sources */,
-				FD39E6501672F986008134E4 /* NSArray+ConvenienceMethods.m in Sources */,
+				FD6CD07E171248110032EE16 /* MTRandom.m in Sources */,
+				FD6CD0811712481D0032EE16 /* NSURL+FileManagement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
