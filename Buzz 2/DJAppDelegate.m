@@ -32,14 +32,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 };
 
 @implementation DJAppDelegate
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        _iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-    }
-    return self;
-}
+
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
 
     [self prompt];
@@ -239,10 +232,6 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
 
     self.panel = [QLPreviewPanel sharedPreviewPanel];
-   // [self.panel updateController];
-    
-
-
 
     [self.panel makeKeyAndOrderFront:self];
     [self.panel enterFullScreenMode:[NSScreen mainScreen] withOptions:nil];
@@ -280,9 +269,27 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     self.panel.delegate = self;
     [self.panel setAutostarts:NO];
 
-    self.isITunesPlaying = (self.iTunes.playerState == iTunesEPlSPlaying);
     if (self.isITunesPlaying) {
         [self.iTunes pause];
+    }
+
+
+}
+
+- (BOOL) isITunesPlaying {
+
+    NSString *identifier = @"com.apple.iTunes";
+    if (![[NSRunningApplication runningApplicationsWithBundleIdentifier:identifier] count]) {
+
+        return NO;
+    } else {
+
+        if (!_iTunes) {
+            _iTunes = [SBApplication applicationWithBundleIdentifier:identifier];
+        }
+
+
+        return self.iTunes.playerState == iTunesEPlSPlaying;
     }
 
 
