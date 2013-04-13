@@ -209,7 +209,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
 
             [itemsToShow addObject:nsfwPage];
-            [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_SEXY_IMAGES_KEY count:5]];
+            [itemsToShow addObjectsFromArray:[self getResourcesWithKey:ALL_SEXY_IMAGES_KEY count:1]];
 
 
             
