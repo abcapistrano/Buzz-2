@@ -271,6 +271,7 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
     if (self.isITunesPlaying) {
         [self.iTunes pause];
+        self.wasITunesPlaying = YES;
     }
 
 
@@ -300,8 +301,9 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
     [self startTimer];
     [NSApp hide:self];
 
-    if (self.isITunesPlaying) {
+    if (self.wasITunesPlaying) {
         [self.iTunes playpause];
+        self.wasITunesPlaying = NO;
     }
 
 }

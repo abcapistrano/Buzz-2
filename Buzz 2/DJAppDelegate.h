@@ -20,6 +20,7 @@
 @property (weak) IBOutlet NSWindow *window;
 @property (readonly) iTunesApplication* iTunes;
 @property (readonly) BOOL isITunesPlaying;
+@property (assign) BOOL wasITunesPlaying;
 
 
 // BUTTON ACTIONS
