@@ -19,6 +19,8 @@
 		FD6CD07E171248110032EE16 /* MTRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6CD07D171248110032EE16 /* MTRandom.m */; };
 		FD6CD0811712481D0032EE16 /* NSURL+FileManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6CD0801712481D0032EE16 /* NSURL+FileManagement.m */; };
 		FD6CD085171248F50032EE16 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6CD084171248F50032EE16 /* ScriptingBridge.framework */; };
+		FDF5FA9F171A769A00146533 /* NSView+findSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF5FA9C171A769A00146533 /* NSView+findSubview.m */; };
+		FDF5FAA0171A769A00146533 /* QLPreviewPanel+AdditionalViews.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF5FA9E171A769A00146533 /* QLPreviewPanel+AdditionalViews.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,10 @@
 		FD6CD082171248270032EE16 /* QLPreviewPanel+Secret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QLPreviewPanel+Secret.h"; path = "../../Headers/QLPreviewPanel+Secret.h"; sourceTree = "<group>"; };
 		FD6CD083171248D70032EE16 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iTunes.h; path = "../../iTunes DJ/iTunes.h"; sourceTree = "<group>"; };
 		FD6CD084171248F50032EE16 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		FDF5FA9B171A769A00146533 /* NSView+findSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+findSubview.h"; path = "../../Headers/QLPreviewPanel+AdditionalViews/NSView+findSubview.h"; sourceTree = "<group>"; };
+		FDF5FA9C171A769A00146533 /* NSView+findSubview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+findSubview.m"; path = "../../Headers/QLPreviewPanel+AdditionalViews/NSView+findSubview.m"; sourceTree = "<group>"; };
+		FDF5FA9D171A769A00146533 /* QLPreviewPanel+AdditionalViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QLPreviewPanel+AdditionalViews.h"; path = "../../Headers/QLPreviewPanel+AdditionalViews/QLPreviewPanel+AdditionalViews.h"; sourceTree = "<group>"; };
+		FDF5FA9E171A769A00146533 /* QLPreviewPanel+AdditionalViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QLPreviewPanel+AdditionalViews.m"; path = "../../Headers/QLPreviewPanel+AdditionalViews/QLPreviewPanel+AdditionalViews.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,9 +108,7 @@
 		FD1D64C11672F5F500425252 /* Buzz 2 */ = {
 			isa = PBXGroup;
 			children = (
-				FD6CD082171248270032EE16 /* QLPreviewPanel+Secret.h */,
-				FD6CD07F1712481D0032EE16 /* NSURL+FileManagement.h */,
-				FD6CD0801712481D0032EE16 /* NSURL+FileManagement.m */,
+				FDF5FAA1171A76A200146533 /* Categories */,
 				FD6CD07C171248110032EE16 /* MTRandom.h */,
 				FD6CD07D171248110032EE16 /* MTRandom.m */,
 				FD1D64D01672F5F500425252 /* MainMenu.xib */,
@@ -128,6 +132,20 @@
 				FD1D64CA1672F5F500425252 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FDF5FAA1171A76A200146533 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				FDF5FA9B171A769A00146533 /* NSView+findSubview.h */,
+				FDF5FA9C171A769A00146533 /* NSView+findSubview.m */,
+				FDF5FA9D171A769A00146533 /* QLPreviewPanel+AdditionalViews.h */,
+				FDF5FA9E171A769A00146533 /* QLPreviewPanel+AdditionalViews.m */,
+				FD6CD082171248270032EE16 /* QLPreviewPanel+Secret.h */,
+				FD6CD07F1712481D0032EE16 /* NSURL+FileManagement.h */,
+				FD6CD0801712481D0032EE16 /* NSURL+FileManagement.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +236,8 @@
 				FD1D64C81672F5F500425252 /* main.m in Sources */,
 				FD6CD07E171248110032EE16 /* MTRandom.m in Sources */,
 				FD6CD0811712481D0032EE16 /* NSURL+FileManagement.m in Sources */,
+				FDF5FA9F171A769A00146533 /* NSView+findSubview.m in Sources */,
+				FDF5FAA0171A769A00146533 /* QLPreviewPanel+AdditionalViews.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

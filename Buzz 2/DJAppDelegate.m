@@ -8,6 +8,8 @@
 
 #import "DJAppDelegate.h"
 #import "iTunes.H"
+#import "QLPreviewPanel+AdditionalViews.h"
+#import "QLPreviewPanel+Secret.h"
 NSString * const ALL_AFFIRMATIONS_KEY = @"ALL_AFFIRMATIONS";
 NSString * const ALL_RULES_KEY = @"ALL_RULES";
 NSString * const ALL_MOTIVATIONAL_IMAGES_KEY = @"ALL_MOTIVATIONAL_IMAGES";
@@ -233,6 +235,20 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
     self.panel = [QLPreviewPanel sharedPreviewPanel];
 
+    NSButton *trashButton = [[NSButton alloc] init];
+    trashButton.buttonType = NSMomentaryPushInButton;
+    trashButton.frame = NSMakeRect(0, 0, 120, 22);
+    [[trashButton cell] setBezelStyle:NSTexturedRoundedBezelStyle];
+    trashButton.title = @"Move to Trash";
+    trashButton.tag = 80804;
+    trashButton.autoresizingMask = NSViewMinXMargin;
+    trashButton.enabled= YES;
+    trashButton.target = self;
+    trashButton.action = @selector(moveToTrash:);
+
+    self.panel.leftBarView = trashButton;
+
+
     [self.panel makeKeyAndOrderFront:self];
     [self.panel enterFullScreenMode:[NSScreen mainScreen] withOptions:nil];
 
@@ -241,7 +257,21 @@ typedef NS_ENUM(NSUInteger, DJPresentationMode) {
 
 }
 
+- (void) moveToTrash: (id) sender {
+    NSURL*  currentItem = (NSURL *)self.panel.currentPreviewItem;
 
+    if ([currentItem trashFile]) {
+
+        [self.panel close];
+
+
+    } else {
+
+        
+        [currentItem revealInFinder];
+    }
+
+}
 
 - (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel {
     
